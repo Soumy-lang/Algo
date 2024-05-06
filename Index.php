@@ -3,6 +3,7 @@
 namespace  functions;
 class Index
 {
+
     public function Menu()
     {
         echo "Bienvenue dans le gestionnaire de bibliothèque en ligne !\n";
