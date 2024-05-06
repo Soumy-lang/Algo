@@ -10,7 +10,7 @@ class Index
         echo "1. Enregistrer un livre\n";
         echo "2. Modifier un livre\n";
         echo "3. Supprimer un livre\n";
-        echo "4. Afficher la liste des livres\n";
+        echo "4. Afficher la liste des livres .\n";
         echo "5. Afficher les détails d'un livre.\n";
         echo "6. Trier les livres\n";
         echo "7. Rechercher un livre\n";
