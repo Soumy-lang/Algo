@@ -1,6 +1,8 @@
 <?php
 
 namespace  functions;
+
+require_once('functions/CreateBook.php');
 class Index
 {
     public function Menu()
@@ -24,8 +26,14 @@ class Index
     {
         switch ($choice) {
             case 1:
-                echo "Creation";
-                // $this->createBook();
+                try {
+                    $book = new CreateBook(1, 'Techno rider', 'Fiction pour enfants', 'Moi meme');
+                    $book->saveToJson('books.json');
+                    $book->logToHistory('history.txt');
+                    echo "Le livre a été créé et enregistré avec succès.";
+                } catch (Exception $e) {
+                    echo 'Erreur : ' . $e->getMessage();
+                }
                 break;
             case 2:
                 echo "Modification";
