@@ -1,4 +1,4 @@
-Nouveau livre ajouté le 2024-05-06 21:11:30 avec l'id 2
-Nouveau livre ajouté le 2024-05-06 21:11:43 avec l'id 2
-Nouveau livre ajouté le 2024-05-06 21:12:07 avec l'id 1
-Nouveau livre ajouté le 2024-05-06 21:12:49 avec l'id 1
+Nouveau livre ajouté le 2024-05-17 11:48:16 avec l'id 3
+Livre d'id 3 a été supprimé à 2024-05-17 09:48:50
+Nouveau livre ajouté le 2024-05-17 11:49:42 avec l'id 3
+Livre d'id 3 a été supprimé à 2024-05-17 11:49:55

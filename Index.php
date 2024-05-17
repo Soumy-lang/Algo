@@ -3,6 +3,10 @@
 namespace  functions;
 
 require_once('functions/CreateBook.php');
+require_once('functions/DeleteBook.php');
+
+
+
 class Index
 {
     public function Menu()
@@ -27,7 +31,7 @@ class Index
         switch ($choice) {
             case 1:
                 try {
-                    $book = new CreateBook(1, 'Techno rider', 'Fiction pour enfants', 'Moi meme');
+                    $book = new CreateBook(3, 'Barbie girl', 'Fiction pour enfants', 'Moi meme');
                     $book->saveToJson('books.json');
                     $book->logToHistory('history.txt');
                     echo "Le livre a été créé et enregistré avec succès.";
@@ -40,8 +44,13 @@ class Index
                 // $this->updateBook();
                 break;
             case 3:
-                echo "Suppression";
-                // $this->deletebook();
+                // echo "Suppression";
+                try {
+                    DeleteBook::deleteFromJson(3, 'books.json', 'history.txt');
+                    echo 'Le livre a été supprimé avec succès.';
+                } catch (Exception $e) {
+                    echo 'Erreur : ' . $e->getMessage();
+                }
                 break;
             case 4:
                 echo "Afficher les livre";

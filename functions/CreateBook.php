@@ -1,6 +1,7 @@
 <?php
 
 namespace functions;
+use Exception;
 
 class CreateBook
 {
@@ -24,10 +25,6 @@ class CreateBook
         if (file_exists($filename)) {
             $existingData = file_get_contents($filename);
             $bookData = json_decode($existingData, true);
-
-            if ($bookData === null) {
-                throw new Exception('Erreur lors de la lecture du fichier JSON existant.');
-            }
         }
 
         $newBookData = [
@@ -52,6 +49,7 @@ class CreateBook
 
     public function logToHistory($filename)
     {
+        date_default_timezone_set('Europe/Paris');
         $logMessage = 'Nouveau livre ajouté le ' . date('Y-m-d H:i:s') . ' avec l\'id ' . $this->id . PHP_EOL;
 
         if (file_put_contents($filename, $logMessage, FILE_APPEND) === false) {
