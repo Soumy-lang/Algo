@@ -10,12 +10,27 @@ class CreateBook
     private $description;
     private $author;
 
-    public function __construct($id, $name, $description, $author)
+    public function __construct($name, $description, $author)
     {
-        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->author = $author;
+        $this->id = $this->generateId();
+    }
+
+    private function generateId() {
+        $file = 'books.json';
+        if (!file_exists($file)) {
+            return 1;
+        }
+
+        $books = json_decode(file_get_contents($file), true);
+        if (empty($books)) {
+            return 1;
+        }
+
+        $lastBook = end($books);
+        return $lastBook['id'] + 1;
     }
 
     public function saveToJson($filename)

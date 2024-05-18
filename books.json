@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "id": 3,
+        "name": "Barbie girl",
+        "description": "Fiction pour enfants",
+        "author": "Moi meme"
+    },
+    {
+        "id": 5,
+        "name": "AZe",
+        "description": "qsz",
+        "author": "ffd"
+    }
+]
