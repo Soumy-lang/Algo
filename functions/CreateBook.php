@@ -2,6 +2,7 @@
 
 namespace functions;
 use Exception;
+use functions\linkedList\LinkedList;
 
 class CreateBook
 {
@@ -9,48 +10,70 @@ class CreateBook
     private $name;
     private $description;
     private $author;
+    private static $bookList;
+    private static $jsonFile = 'books.json';
+
 
     public function __construct($name, $description, $author)
     {
+        if (!isset(self::$bookList)) {
+            self::$bookList = new LinkedList();
+            $this->loadBooksFromJson();
+        }
+
         $this->name = $name;
         $this->description = $description;
         $this->author = $author;
         $this->id = $this->generateId();
+        $this->addBook();
     }
 
-    private function generateId() {
-        $file = 'books.json';
-        if (!file_exists($file)) {
+    private function loadBooksFromJson()
+    {
+        if (file_exists(self::$jsonFile)) {
+            $existingData = file_get_contents(self::$jsonFile);
+            $books = json_decode($existingData, true);
+            if (!empty($books)) {
+                foreach ($books as $book) {
+                    self::$bookList->add($book);
+                }
+            }
+        }
+    }
+
+    private function generateId()
+    {
+        if (self::$bookList === null || empty(self::$bookList->getAll())) {
             return 1;
         }
 
-        $books = json_decode(file_get_contents($file), true);
-        if (empty($books)) {
-            return 1;
-        }
-
+        $books = self::$bookList->getAll();
         $lastBook = end($books);
         return $lastBook['id'] + 1;
     }
 
-    public function saveToJson($filename)
+    private function addBook()
     {
-        $bookData = [];
-
-        if (file_exists($filename)) {
-            $existingData = file_get_contents($filename);
-            $bookData = json_decode($existingData, true);
-        }
-
         $newBookData = [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
             'author' => $this->author
         ];
-        $bookData[] = $newBookData;
+        self::$bookList->add($newBookData);
+    }
 
-        $jsonString = json_encode($bookData);
+    public function saveToJson($filename)
+    {
+        $bookData = self::$bookList->getAll();
+
+        foreach ($bookData as &$book) {
+            if (is_object($book)) {
+                $book = (array)$book;
+            }
+        }
+
+        $jsonString = json_encode($bookData, JSON_PRETTY_PRINT);
 
         if ($jsonString === false) {
             throw new Exception('Erreur lors de l\'encodage JSON.');
@@ -61,11 +84,10 @@ class CreateBook
         }
     }
 
-
     public function logToHistory($filename)
     {
         date_default_timezone_set('Europe/Paris');
-        $logMessage = 'Nouveau livre ajouté le ' . date('Y-m-d H:i:s') . ' avec l\'id ' . $this->id . PHP_EOL;
+        $logMessage = 'Nouveau livre intitulé "' . $this->name . '" a été ajouté le ' . date('d/m/Y H:i:s') . ' avec l\'id ' . $this->id . PHP_EOL;
 
         if (file_put_contents($filename, $logMessage, FILE_APPEND) === false) {
             throw new Exception('Erreur lors de l\'enregistrement de l\'historique.');

@@ -5,6 +5,8 @@ namespace  functions;
 require_once('functions/CreateBook.php');
 require_once('functions/DeleteBook.php');
 require_once('functions/SearchBook.php');
+require_once ('functions/linkedList/LinkedList.php');
+require_once ('functions/linkedList/Node.php');
 
 
 class Index

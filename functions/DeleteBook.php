@@ -49,7 +49,7 @@ class DeleteBook
 
         $logMessage = 'Livre d\'id ' . $id . ' a été supprimé';
         date_default_timezone_set('Europe/Paris');
-        $logEntry = $logMessage . ' à ' . date('Y-m-d H:i:s') . PHP_EOL;
+        $logEntry = $logMessage . ' le ' . date('d/m/Y H:i:s') . PHP_EOL;
         if (file_put_contents($historyFilePath, $logEntry, FILE_APPEND) === false) {
             throw new \Exception('Erreur lors de l\'enregistrement de l\'historique.');
         }
