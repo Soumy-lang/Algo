@@ -56,7 +56,7 @@ class Index
                 try {
                     $updateBook = new UpdateBook();
 
-                    $bookId = readline("Quel livre souhaitez-vous modifier ? : ");
+                    $bookId = readline("Quel livre souhaitez-vous modifier (id) ? : ");
                     if (!is_numeric($bookId)) {
                         echo "L'ID du livre doit être un nombre.";
                         return;
@@ -79,7 +79,7 @@ class Index
                 break;
             case 3: // suppression
                 try {
-                    $id = readline("Quel livre souhaitez vous supprimer : ");
+                    $id = readline("Quel livre souhaitez vous supprimer (id) : ");
                     DeleteBook::deleteTheBook($id, 'books.json', 'history.txt');
                     echo 'Le livre a été supprimé avec succès.';
                 } catch (Exception $e) {
