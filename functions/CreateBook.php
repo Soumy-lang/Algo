@@ -17,6 +17,9 @@ class CreateBook
 
     public function __construct($name, $description, $author, $is_available)
     {
+        // initialisation des propriétés de la classe avec les valeurs fournies par le user
+        // generer un id unique
+        // ajouter les livres du fichier json dans la liste chainée
         if (!isset(self::$bookList)) {
             self::$bookList = new LinkedList();
             $this->loadBooksFromJson();
@@ -30,6 +33,7 @@ class CreateBook
         $this->addBook();
     }
 
+    // verifier l'existance du fichier, ajouter les données sous forme de tableau associatif dans la liste chainée
     private function loadBooksFromJson()
     {
         if (file_exists(self::$jsonFile)) {
@@ -43,6 +47,7 @@ class CreateBook
         }
     }
 
+    // generer un id unique en incrementant le dernier id
     private function generateId()
     {
         if (self::$bookList === null || empty(self::$bookList->getAll())) {
@@ -54,6 +59,7 @@ class CreateBook
         return $lastBook['id'] + 1;
     }
 
+    // ajouter un livre dans la liste chainée
     private function addBook()
     {
         $newBookData = [
@@ -66,6 +72,7 @@ class CreateBook
         self::$bookList->add($newBookData);
     }
 
+    // ajouter le livre dans le fichier json
     public function saveToJson($filename)
     {
         $bookData = self::$bookList->getAll();
@@ -87,6 +94,7 @@ class CreateBook
         }
     }
 
+    // enregistrer l'historique
     public function logToHistory($filename)
     {
         date_default_timezone_set('Europe/Paris');
