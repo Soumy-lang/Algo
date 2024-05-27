@@ -10,11 +10,12 @@ class CreateBook
     private $name;
     private $description;
     private $author;
+    private $is_available;
     private static $bookList;
     private static $jsonFile = 'books.json';
 
 
-    public function __construct($name, $description, $author)
+    public function __construct($name, $description, $author, $is_available)
     {
         if (!isset(self::$bookList)) {
             self::$bookList = new LinkedList();
@@ -24,6 +25,7 @@ class CreateBook
         $this->name = $name;
         $this->description = $description;
         $this->author = $author;
+        $this->is_available = $is_available;
         $this->id = $this->generateId();
         $this->addBook();
     }
@@ -58,7 +60,8 @@ class CreateBook
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'author' => $this->author
+            'author' => $this->author,
+            'is_available' => $this->is_available,
         ];
         self::$bookList->add($newBookData);
     }
